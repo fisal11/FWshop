@@ -1,0 +1,109 @@
+﻿@model IEnumerable<FWshop.Models.EmploeeVM>
+@using FWshop.Resource
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Resource> Resource
+@{
+    ViewBag.Title = Resource["titel"];
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    var Culture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+
+}
+@if(Culture=="en-US")
+{
+    <h3 style="text-align:right">
+    <a asp-controller="Emploee" asp-action="Index" asp-route-culture="ar-EG">
+    @Resource["Arabic"]</a>
+    </h3>
+}
+@if(Culture=="ar-EG")
+{
+    <h3 style="text-align:left">
+   <a asp-controller="Emploee" asp-action="Index" asp-route-culture="en-US">
+    @Resource["English"]</a>
+   </h3>
+}
+<h1 style="text-align:center">@Resource["WTE"]</h1>
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                    <a asp-controller="Emploee" asp-action="Create" 
+                    class="btn btn-primary pull-left" style="margin-bottom:5px">
+                    @Resource["AddEmploee"]</a>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="javascript:void(0);">Action</a></li>
+                                    <li><a href="javascript:void(0);">Another action</a></li>
+                                    <li><a href="javascript:void(0);">Something else here</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped text-center table-hover js-basic-example dataTable">
+                                <thead >
+                                <tr >
+                                  <th class="text-center ">@Resource["Name"]</th>
+                                  <th class="text-center ">@Resource["Salary"]</th>
+                                  <th class="text-center ">@Resource["Photo"]</th>
+                                  <th class="text-center ">@Resource["Cv"]</th>
+                                  <th class="text-center ">@Resource["Department"]</th>
+                                  <th class="text-center ">@Resource["Edit"]</th>
+                                  <th class="text-center ">@Resource["Delete"]</th>
+                                  <th class="text-center ">@Resource["Details"]</th>
+                                </tr>
+                               </thead>
+
+                               <tbody>
+                            @foreach (var item in Model){
+                                <tr>
+                                  <td>@item.Name</td>
+                                  <td>@item.Salary</td>
+                                  <td> 
+                                   <img src="~/Files/Photos/@item.PhotoName" width="50" height="40"/>
+                                  </td>
+                                  <td>
+                                      <a href="~/Files/Docs/@item.CvName">@Resource["DownloadCv"]</a>                                  
+                                  </td>
+                                  <td>@item.DepartmentName</td>
+                                  <td><a asp-controller="Emploee"asp-action="Edit"
+                                      asp-route-id="@item.Id" class="btn btn-primary">@Resource["Edit"]</a></td>
+                                  <td><a asp-controller="Emploee"asp-action="Delete"
+                                      asp-route-id="@item.Id" class="btn btn-primary">@Resource["Delete"]</a></td>
+                                  <td><a asp-controller="Emploee"asp-action="Details"
+                                      asp-route-id="@item.Id" class="btn btn-primary">@Resource["Details"]</a></td>
+                                </tr>
+                                }
+                               </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    @section DataTableSection{
+
+    <script>
+        $(function () {
+            $('.js-basic-example').DataTable({
+                responsive: true,
+                paging: true,
+                pageLength: 3,
+                bSort: true,
+                bFilter: true,
+                //bLengthChange: false,
+                //bInfo: false,
+                lengthMenu: [[3, 5, 10, 25, 50, -1], [3, 5, 10, 25, 50, "All"]],
+
+            });
+        });
+    </script>
+}

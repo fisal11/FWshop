@@ -1,0 +1,22 @@
+﻿@model FWshop.Areas.ContectUS.Models.ConMail
+@{
+    ViewData["Title"] = "Send Mail";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<h3 style="color:red">
+     @TempData["Mess"]
+</h3>
+<h1>Send Mail</h1>
+<form  asp-controller="ConMail" asp-action="SendMail" method="post">
+
+    <label asp-for="Title">Title</label>
+    <input type="text" asp-for="Title" class= "form-control"/>
+    <span class="text-danger" asp-validation-for="Title"></span>
+    <br><br>
+    <label asp-for="Message">Message</label>
+    <textarea asp-for="Message" class= "form-control" rows="4"></textarea>
+    <span class="text-danger" asp-validation-for="Message"></span>
+    <br><br>
+    
+     <input type="submit" value="Send" class="btn btn-primary"/>
+</form>
