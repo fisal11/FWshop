@@ -65,7 +65,7 @@ namespace FWshop.BL.Repository
                 DepartmentId = a.DepartmentId,
                 //DistrictId = a.DistrictId,
             });
-            return _mapper.Map<IEnumerable<EmploeeVM>>(getData);
+            return getData;
            
         }
 
@@ -90,7 +90,7 @@ namespace FWshop.BL.Repository
                 DepartmentId = a.DepartmentId,
                // DistrictId = a.DistrictId,
             }).FirstOrDefault();
-            return _mapper.Map<EmploeeVM>(getDataById);
+            return getDataById;
         }
     }
 }
